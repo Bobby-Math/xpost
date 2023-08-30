@@ -6,7 +6,6 @@ import re
 import time
 
 def send_to_telegram(message):
-
     
     global tg
     tg=0    
@@ -21,7 +20,6 @@ def send_to_telegram(message):
             print("\nNot posted in Telegram: FAILED")
     except Exception as e:
        print(e)
-
 
 fileobject = open("textfile.txt","r")
 data = fileobject.read()
@@ -175,7 +173,7 @@ if __name__ == '__main__':
         with open("textfile.txt", "w") as file:
             file.truncate(0)
         with open("textfile.txt", "w") as file:
-            file.write(" ")
+            file.write("")
         print("\nFile cleared and saved.")
 
 
