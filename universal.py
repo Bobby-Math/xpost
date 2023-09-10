@@ -4,6 +4,11 @@ import apikeys
 import json
 import re
 import time
+import argparse
+
+parser = argparse.ArgumentParser(description="Script Parser")
+parser.add_argument("x", type = str, nargs='?', default='default_value', help = " A String")
+args = parser.parse_args()
 
 def send_to_telegram(message):
     
@@ -23,12 +28,14 @@ def send_to_telegram(message):
 
 fileobject = open("textfile.txt","r")
 data = fileobject.read()
-send_to_telegram(data) #Comment this line if you want to disable Telegram.
 
+if(args.x != "x"):
+    send_to_telegram(data)
+    
 ########################### Twitter portion ##################################
 
-client = tweepy.Client( consumer_key = apikeys.API_KEY, consumer_secret = apikeys.API_SECRET_KEY, access_token = apikeys.ACCESS_KEY, access_token_secret = apikeys.ACCESS_SECRET_KEY )
-         
+client = tweepy.Client(consumer_key = apikeys.API_KEY, consumer_secret = apikeys.API_SECRET_KEY, access_token = apikeys.ACCESS_KEY, access_token_secret = apikeys.ACCESS_SECRET_KEY)
+
 def create_tweet(message:str, reply_id = None, image_path = None):
     if image_path:
         response = client.create_tweet(message, media_id = image_path, in_reply_to_tweet_id = reply_id)
@@ -124,7 +131,6 @@ def create_thread(data, image_path = None, reply_id = None):
     
     global x
     x = 0
-
     tweets = divide_paragraph(data)
     print("\nNumber of tweets in this thread:" + str(len(tweets)))
     print("\nTweeting for " + apikeys.twitter_account_id + "\n")
@@ -142,14 +148,10 @@ def create_thread(data, image_path = None, reply_id = None):
     time.sleep(1)
     tweet_count = 1
 
-    if(len(tweets)<=10):
+    if(len(tweets)<=15):
         time_delay = 1
-    if(len(tweets)>10 and len(tweets)<=30):
-        time_delay = 2
-    if(len(tweets)>30 and len(tweets)<=40):
-        time_delay = 3
     else:
-        time_delay = 5
+        time_delay = 2
 
     for t in tweets[1:]:
         tweet_id = response.data['id']
@@ -159,17 +161,19 @@ def create_thread(data, image_path = None, reply_id = None):
         time.sleep(time_delay)
 
     if tweet_count == len(tweets):
-        print("\nAll tweets have been successfully posted.\n")
+        print("\nAll tweets have been successfully posted.")
         x = 1
+        print("\n" + thread_link)
 
 if __name__ == '__main__':
   
     image_path = None
     reply_id = None
     # reply_id = input("Enter the id of the tweet which you want to reply to: ")
+
     create_thread(data, image_path, reply_id)
 
-    if(x == 1) and (tg == 1):
+    if(x == 1) or (tg == 1):
         with open("textfile.txt", "w") as file:
             file.truncate(0)
         with open("textfile.txt", "w") as file:
