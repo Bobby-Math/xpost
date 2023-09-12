@@ -157,11 +157,17 @@ def create_thread(data, image_path = None, reply_id = None):
         x = 1
         print("\n" + thread_link)
 
+def Authenticate_Client():
+
+    client = tweepy.Client(consumer_key = apikeys.API_KEY, consumer_secret = apikeys.API_SECRET_KEY, access_token = apikeys.ACCESS_KEY, access_token_secret = apikeys.ACCESS_SECRET_KEY)
+
+    return client
+
 if __name__ == '__main__':
     
     args = parse_arguments()
-
-    client = tweepy.Client(consumer_key = apikeys.API_KEY, consumer_secret = apikeys.API_SECRET_KEY, access_token = apikeys.ACCESS_KEY, access_token_secret = apikeys.ACCESS_SECRET_KEY)
+    
+    client = Authenticate_Client()
 
     fileobject = open("textfile.txt","r")
     data = fileobject.read()
@@ -171,8 +177,7 @@ if __name__ == '__main__':
     
     image_path = None
     reply_id = None
-    # reply_id = input("Enter the id of the tweet which you want to reply to: ")
-
+    
     create_thread(data, image_path, reply_id)
 
     if(x == 1) or (tg == 1):
