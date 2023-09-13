@@ -155,7 +155,7 @@ def create_thread(data, image_path = None, reply_id = None):
     if tweet_count == len(tweets):
         print("\nAll tweets have been successfully posted.")
         x = 1
-        print("\n" + thread_link)
+        print("\n" + thread_link + "\n")
 
 def Authenticate_Client():
 
