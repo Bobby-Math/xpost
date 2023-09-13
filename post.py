@@ -183,4 +183,4 @@ if __name__ == '__main__':
     if(x == 1) or (tg == 1):
         with open("textfile.txt", "w") as file:
             pass 
-        print("\nFile cleared and saved.")
+    
