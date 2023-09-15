@@ -28,11 +28,11 @@ def send_to_telegram(message):
     except Exception as e:
        print(e)
 
-def create_tweet(message:str, reply_id = None, image_path = None):
+def create_tweet(message:str, reply_id = None, image_path = None, Quote_id = None):
     if image_path:
-        response = client.create_tweet(message, media_id = image_path, in_reply_to_tweet_id = reply_id)
+        response = client.create_tweet(message, media_ids = image_path, in_reply_to_tweet_id = reply_id, quote_tweet_id = Quote_id)
     else:
-      response = client.create_tweet(text = message, in_reply_to_tweet_id = reply_id)
+      response = client.create_tweet(text = message, in_reply_to_tweet_id = reply_id, quote_tweet_id = Quote_id)
 
     print("Tweeting........") 
     return response
@@ -177,7 +177,9 @@ if __name__ == '__main__':
     
     image_path = None
     reply_id = None
-    
+    quote_tweet_id = None
+    # Quote_id = input("Enter the quote tweet id:")
+    # reply_id = input("Enter the reply id:")
     create_thread(data, image_path, reply_id)
 
     if(x == 1) or (tg == 1):
