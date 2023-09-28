@@ -132,9 +132,9 @@ def create_thread(data, image_path = None, reply_id = None):
     first_tweet_id = response.data['id']
 
     if(reply_id != None):
-        print("in reply to:" + "https://twitter.com/" + apikeys.twitter_account_id + "/status/" + str(reply_id))
+        print("in reply to:" + "https://x.com/" + apikeys.twitter_account_id + "/status/" + str(reply_id))
               
-    thread_link = "https://twitter.com/" + apikeys.twitter_account_id + "/status/" + str(first_tweet_id)
+    thread_link = "https://x.com/" + apikeys.twitter_account_id + "/status/" + str(first_tweet_id)
 
     print("\nSending tweet[" + str(1) + "]")
     time.sleep(1)
@@ -169,7 +169,7 @@ if __name__ == '__main__':
     
     client = Authenticate_Client()
 
-    fileobject = open("textfile.txt","r")
+    fileobject = open("uni.txt","r")
     data = fileobject.read()
 
     if(args.x != "x"):
@@ -183,6 +183,6 @@ if __name__ == '__main__':
     create_thread(data, image_path, reply_id)
 
     if(x == 1) or (tg == 1):
-        with open("textfile.txt", "w") as file:
+        with open("uni.txt", "w") as file:
             pass 
     
