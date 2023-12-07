@@ -1,6 +1,6 @@
 import requests  
 import tweepy   
-import apikeys  
+import apikeys
 import json
 import re
 import time
