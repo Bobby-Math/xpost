@@ -9,7 +9,7 @@ import argparse
 def parse_arguments():
     
     parser = argparse.ArgumentParser(description="Script Parser")
-    parser.add_argument("x", type = str, nargs='?', default='default_value', help = " A String")
+    parser.add_argument("x", type = str, nargs='?', default='default_value', help = "A String")
     return parser.parse_args()
 
 def send_to_telegram(message):
