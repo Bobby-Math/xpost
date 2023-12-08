@@ -9,3 +9,4 @@ ACCESS_SECRET_KEY = 'YOUR_TWITTER_ACCESS_SECRET_KEY'
 apiToken = 'YOUR_TELEGRAM_API_TOKEN'
 chatID = 'YOUR_TELEGRAM_CHAT_ID'
 
+#chat ID is the Id of the channel that you want to post content on.
