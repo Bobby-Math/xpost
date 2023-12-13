@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs
+
 import post 
 
 class RequestHandler(BaseHTTPRequestHandler):
@@ -11,21 +12,25 @@ class RequestHandler(BaseHTTPRequestHandler):
             with open('index.html', 'rb') as f:
                 self.wfile.write(f.read())
 
+    
     def do_POST(self):
         if self.path == '/post-to-twitter':
+            # print("hi")
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length).decode('utf-8')
             tweet_text = parse_qs(post_data)['tweetText'][0]
-
+            
+            # print(tweet_text)
             with open("uni.txt",'w') as file:
                 file.write(tweet_text)
 
+            fileobject = open("uni.txt","r")
+            data = fileobject.read()
+
+            post.send_to_telegram(data)
+            post.create_thread(data, image_path = None, reply_id = None)
             # Run your Python code to post on Twitter here
-            
             # Replace the following print statement with your actual Twitter API integration code
-            
-
-
             
             print('Tweet posted:', tweet_text)
 

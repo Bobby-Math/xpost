@@ -1,3 +1,4 @@
+import importlib
 import requests  
 import tweepy   
 import apikeys
@@ -6,6 +7,7 @@ import re
 import time
 import argparse
 
+importlib.reload(apikeys)
 def parse_arguments():
     
     parser = argparse.ArgumentParser(description="Script Parser")
@@ -121,6 +123,7 @@ def divide_paragraph(paragraph):
 
 def create_thread(data, image_path = None, reply_id = None):
     
+    client = Authenticate_Client()
     global x
     x = 0
     tweets = divide_paragraph(data)
@@ -159,8 +162,11 @@ def create_thread(data, image_path = None, reply_id = None):
 
 def Authenticate_Client():
 
+    print('#')
+    
     client = tweepy.Client(consumer_key = apikeys.API_KEY, consumer_secret = apikeys.API_SECRET_KEY, access_token = apikeys.ACCESS_KEY, access_token_secret = apikeys.ACCESS_SECRET_KEY)
 
+    print('#')
     return client
 
 if __name__ == '__main__':
@@ -177,7 +183,7 @@ if __name__ == '__main__':
     quote_tweet_id = None
     # Quote_id = input("Enter the quote tweet id:")
     # reply_id = input("Enter the reply id:")
-    create_thread(data, image_path, reply_id)
+    
 
     if(x == 1) or (tg == 1):
         with open("uni.txt", "w") as file:
