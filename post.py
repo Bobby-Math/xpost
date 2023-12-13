@@ -165,15 +165,12 @@ def Authenticate_Client():
 
 if __name__ == '__main__':
     
-    args = parse_arguments()
-    
     client = Authenticate_Client()
 
     fileobject = open("uni.txt","r")
     data = fileobject.read()
 
-    if(args.x != "x"):
-        send_to_telegram(data)
+    send_to_telegram(data)
     
     image_path = None
     reply_id = None
