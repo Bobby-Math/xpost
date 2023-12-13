@@ -123,7 +123,6 @@ def divide_paragraph(paragraph):
 
 def create_thread(data, image_path = None, reply_id = None):
     
-    client = Authenticate_Client()
     global x
     x = 0
     tweets = divide_paragraph(data)
@@ -162,17 +161,22 @@ def create_thread(data, image_path = None, reply_id = None):
 
 def Authenticate_Client():
 
-    print('#')
-    
     client = tweepy.Client(consumer_key = apikeys.API_KEY, consumer_secret = apikeys.API_SECRET_KEY, access_token = apikeys.ACCESS_KEY, access_token_secret = apikeys.ACCESS_SECRET_KEY)
 
-    print('#')
     return client
+
+client = Authenticate_Client()
+
+def execute(client):
+
+    fileobject = open("uni.txt","r")
+    data = fileobject.read()
+            
+    send_to_telegram(data)
+    create_thread(data, image_path = None, reply_id = None)
 
 if __name__ == '__main__':
     
-    client = Authenticate_Client()
-
     fileobject = open("uni.txt","r")
     data = fileobject.read()
 
@@ -184,7 +188,7 @@ if __name__ == '__main__':
     # Quote_id = input("Enter the quote tweet id:")
     # reply_id = input("Enter the reply id:")
     
-
+    create_thread(data, image_path = None, reply_id = None)
     if(x == 1) or (tg == 1):
         with open("uni.txt", "w") as file:
             pass 

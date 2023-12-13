@@ -24,14 +24,11 @@ class RequestHandler(BaseHTTPRequestHandler):
             with open("uni.txt",'w') as file:
                 file.write(tweet_text)
 
-            fileobject = open("uni.txt","r")
-            data = fileobject.read()
-
-            post.send_to_telegram(data)
-            post.create_thread(data, image_path = None, reply_id = None)
             # Run your Python code to post on Twitter here
             # Replace the following print statement with your actual Twitter API integration code
             
+            post.execute(post.client)
+
             print('Tweet posted:', tweet_text)
 
             self.send_response(200)
@@ -41,7 +38,12 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(response_message.encode('utf-8'))
 
 if __name__ == '__main__':
-    server_address = ('', 8000)
-    httpd = HTTPServer(server_address, RequestHandler)
-    print('Server running on http://localhost:8000')
-    httpd.serve_forever()
+
+    try:
+        server_address = ('', 8000)
+        httpd = HTTPServer(server_address, RequestHandler)
+        print('Server running on http://localhost:8000')
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print('Shutting down the server.')
+        httpd.shutdown()
