@@ -1,17 +1,15 @@
-import importlib
 import requests  
 import tweepy   
-import apikeys
+import apikeys   
 import json
 import re
 import time
 import argparse
 
-importlib.reload(apikeys)
 def parse_arguments():
     
     parser = argparse.ArgumentParser(description="Script Parser")
-    parser.add_argument("x", type = str, nargs='?', default='default_value', help = "A String")
+    parser.add_argument("x", type = str, nargs='?', default='default_value', help = " A String")
     return parser.parse_args()
 
 def send_to_telegram(message):
@@ -165,30 +163,25 @@ def Authenticate_Client():
 
     return client
 
-client = Authenticate_Client()
-
-def execute(client):
-
-    fileobject = open("uni.txt","r")
-    data = fileobject.read()
-            
-    send_to_telegram(data)
-    create_thread(data, image_path = None, reply_id = None)
-
 if __name__ == '__main__':
     
+    args = parse_arguments()
+    
+    client = Authenticate_Client()
+
     fileobject = open("uni.txt","r")
     data = fileobject.read()
 
-    send_to_telegram(data)
+    if(args.x != "x"):
+        send_to_telegram(data)
     
     image_path = None
     reply_id = None
     quote_tweet_id = None
     # Quote_id = input("Enter the quote tweet id:")
     # reply_id = input("Enter the reply id:")
-    
-    create_thread(data, image_path = None, reply_id = None)
+    create_thread(data, image_path, reply_id)
+
     if(x == 1) or (tg == 1):
         with open("uni.txt", "w") as file:
             pass 
