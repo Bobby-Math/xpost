@@ -169,7 +169,9 @@ if __name__ == '__main__':
     
     client = Authenticate_Client()
 
-    fileobject = open("uni.txt","r")
+    filename = "/home/bobby/xpost/uni2.txt"
+    
+    fileobject = open(filename,"r")
     data = fileobject.read()
 
     if(args.x != "x"):
@@ -183,6 +185,6 @@ if __name__ == '__main__':
     create_thread(data, image_path, reply_id)
 
     if(x == 1) or (tg == 1):
-        with open("uni.txt", "w") as file:
+        with open(filename, "w") as file:
             pass 
     
